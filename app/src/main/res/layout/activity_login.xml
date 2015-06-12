@@ -1,0 +1,63 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".LoginActivity"
+    android:background="#ffe2fff5"
+    android:id="@+id/activity_login">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="@string/texto_matricula"
+        android:ems="10"
+        android:id="@+id/editTextMatricula"
+        android:layout_above="@+id/editTextSenha"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="39dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editTextSenha"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/editTextMatricula"
+        android:layout_alignStart="@+id/editTextMatricula"
+        android:text="@string/informe_sua_senha" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/texto_entrar"
+        android:id="@+id/buttonEntrar"
+        android:layout_marginTop="39dp"
+        android:layout_below="@+id/editTextSenha"
+        android:layout_alignLeft="@+id/editTextSenha"
+        android:layout_alignStart="@+id/editTextSenha" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/texto_registrar"
+        android:id="@+id/buttonRegistrar"
+        android:layout_alignTop="@+id/buttonEntrar"
+        android:layout_alignRight="@+id/editTextSenha"
+        android:layout_alignEnd="@+id/editTextSenha" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/titulo_login"
+        android:id="@+id/textViewTituloLogin"
+        android:layout_marginBottom="37dp"
+        android:layout_above="@+id/editTextMatricula"
+        android:layout_centerHorizontal="true"
+        android:capitalize="characters" />
+</RelativeLayout>

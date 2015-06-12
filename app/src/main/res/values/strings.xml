@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Atividades Colaborativas - Prointer IV</string>
+    <string name="rotulo_matricula">Matrícula:</string>
+    <string name="rotulo_senha">Senha:</string>
+    <string name="botao_entrar">Entrar</string>
+    <string name="botao_registar">Registrar</string>
+    <string name="texto_matricula">Matrícula</string>
+    <string name="informe_sua_senha">Informe sua senha...</string>
+    <string name="texto_entrar">Entrar</string>
+    <string name="texto_registrar">Registre-se</string>
+    <string name="titulo_login">Atividades Colaborativas</string>
+</resources>
