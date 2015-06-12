@@ -2,6 +2,8 @@ package mnfc.com.br.atividadescolaborativasapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -67,10 +69,19 @@ public class LoginActivity extends Activity {
         buttonEntrar.setOnClickListener(aoClicarEntrar);
 
         buttonRegistrar = (Button) findViewById(R.id.buttonRegistrar);
+        buttonRegistrar.setOnClickListener(aoClicarRegistrar);
 
         editTextMatricula = (EditText) findViewById(R.id.editTextMatricula);
         editTextSenha = (EditText) findViewById(R.id.editTextSenha);
     }
+
+    private View.OnClickListener aoClicarRegistrar = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent telaRegistro = new Intent(contextoAtual,RegistroActivity.class);
+            startActivity(telaRegistro);
+        }
+    };
 
     private View.OnClickListener aoClicarEntrar = new View.OnClickListener() {
         @Override

@@ -7,9 +7,18 @@ public class Aluno {
 
     private String _id;
     private long matricula;
-    private String senha;
     private String token;
+    private String senha;
+    private String nome;
     private int __v;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     public long getMatricula() {
         return matricula;

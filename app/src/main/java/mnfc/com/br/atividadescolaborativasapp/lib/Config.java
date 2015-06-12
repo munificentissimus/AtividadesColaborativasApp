@@ -6,6 +6,11 @@ package mnfc.com.br.atividadescolaborativasapp.lib;
 public class Config {
     private final static String URL_API = "https://prointeriv-munificentissimus1.c9.io/api";
     private final static String ENCODING_PADRAO = "UTF-8";
+    public static final String PREFERENCES = "AppPrefs" ;
+
+    public static String getPREFERENCES() {
+        return PREFERENCES;
+    }
 
     public static String getEncodingPadrao() {
         return ENCODING_PADRAO;

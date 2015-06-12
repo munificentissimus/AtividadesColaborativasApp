@@ -20,6 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".RegistroActivity" android:label="Regitro - Prointer IV">
+        </activity>
 
     </application>
 
