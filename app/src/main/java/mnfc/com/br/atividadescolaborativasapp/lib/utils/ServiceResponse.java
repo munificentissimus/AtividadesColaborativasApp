@@ -5,6 +5,7 @@ package mnfc.com.br.atividadescolaborativasapp.lib.utils;
  */
 public class ServiceResponse {
     private int statusCode;
+    private Object dados;
     private String mensagem;
 
     public int getStatusCode() {
@@ -21,5 +22,13 @@ public class ServiceResponse {
 
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
+    }
+
+    public Object getDados() {
+        return dados;
+    }
+
+    public void setDados(Object dados) {
+        this.dados = dados;
     }
 }

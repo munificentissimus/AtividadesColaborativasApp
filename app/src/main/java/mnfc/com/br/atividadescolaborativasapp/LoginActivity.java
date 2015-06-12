@@ -22,6 +22,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
@@ -75,41 +76,11 @@ public class LoginActivity extends Activity {
         @Override
         public void onClick(View v) {
             if (editTextMatricula.getText().length() == 0 || editTextSenha.getText().length() == 0){
-                Toast.makeText(contextoAtual,"Matrícula e senha obrigatórios",Toast.LENGTH_SHORT).show();
+                exibirMensagemCurta("Matrícula e senha obrigatórios");
             } else {
                 //Chamar webservice de login
                 Log.i(TAG, "Chamar webservice de login");
-                Thread thread = new Thread()
-                {
-                    @Override
-                    public void run() {
-                        try {
-                            HttpClient client = new DefaultHttpClient();
-                            String postURL = Config.getUrlApi() + "/login";
-                            HttpPost post = new HttpPost(postURL);
-                            ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-                            params.add(new BasicNameValuePair("matricula", editTextMatricula.getText().toString() ));
-                            params.add(new BasicNameValuePair("senha", editTextSenha.getText().toString()));
-                            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params, HTTP.UTF_8);
-                            post.setEntity(ent);
-                            HttpResponse responsePOST = client.execute(post);
-                            HttpEntity resEntity = responsePOST.getEntity();
-                            String _response = EntityUtils.toString(resEntity);
-                            if (responsePOST.getStatusLine().getStatusCode() == 200  ){
-                                ServiceResponse sr = new Gson().fromJson(_response,ServiceResponse.class);
-                                Toast.makeText(getApplicationContext() ,sr.getMensagem(),Toast.LENGTH_SHORT).show();
-                            } else {
-                                alunoLogado = new Gson().fromJson(_response,Aluno.class);
-                                Toast.makeText(getApplicationContext(),"Login efetuado com sucesso",Toast.LENGTH_SHORT).show();
-                            }
-
-                            Log.e("XXX",_response);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-                thread.start();
+                new LogarTask().execute();
 
                 //Receber o aluno e atribuir para aluno atual
                 Log.i(TAG, "Receber o aluno atual");
@@ -117,6 +88,58 @@ public class LoginActivity extends Activity {
                 Log.i(TAG, "Receber o aluno atual");
             }
         }
-    };
+   };
+
+    private void exibirMensagemCurta(String mensagem){
+        Toast.makeText(contextoAtual,mensagem,Toast.LENGTH_SHORT).show();
+    }
+
+    private class LogarTask extends AsyncTask<String,Void, ServiceResponse>{
+
+        @Override
+        protected ServiceResponse doInBackground(String... params) {
+            try {
+                HttpClient client = new DefaultHttpClient();
+                String postURL = Config.getUrlApi() + "/login";
+                HttpPost post = new HttpPost(postURL);
+                post.setHeader("User-Agent", "Aplicacao cliente");
+                post.setHeader("Content-type", "application/json");
+                ArrayList<NameValuePair> parametros = new ArrayList<NameValuePair>();
+                Log.i(TAG, "matricula: " + editTextMatricula.getText().toString());
+                Log.i(TAG, "senha: " + editTextSenha.getText().toString());
+
+                Aluno aluno = new Aluno();
+                long matricula = editTextMatricula.getText().toString().isEmpty() ? 0 : Long.parseLong(editTextMatricula.getText().toString());
+                aluno.setMatricula(matricula);
+                aluno.setSenha(editTextSenha.getText().toString());
+
+
+                //parametros.add(new BasicNameValuePair("matricula", editTextMatricula.getText().toString() ));
+                //parametros.add(new BasicNameValuePair("senha", editTextSenha.getText().toString()));
+                //UrlEncodedFormEntity ent = new UrlEncodedFormEntity(parametros, HTTP.UTF_8);
+
+                StringEntity se;
+                se = new StringEntity(new Gson().toJson(aluno, Aluno.class) , HTTP.UTF_8);
+                post.setEntity(se);
+                HttpResponse httpResponse = client.execute(post);
+                HttpEntity resEntity = httpResponse.getEntity();
+                final String _response = EntityUtils.toString(resEntity);
+                return new Gson().fromJson(_response, ServiceResponse.class);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ServiceResponse resposta) {
+            Log.i(TAG, resposta.toString());
+            if (resposta.getStatusCode() == 200 || resposta.getStatusCode() == 201){
+                //Ir para a lista de atividades do usuario
+            }else {
+                exibirMensagemCurta(resposta.getMensagem());
+            }
+        }
+    }
 
 }
