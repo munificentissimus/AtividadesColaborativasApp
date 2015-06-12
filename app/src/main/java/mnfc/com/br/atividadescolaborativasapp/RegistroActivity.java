@@ -37,9 +37,9 @@ public class RegistroActivity extends Activity {
     private EditText editTextNomeRegistro;
     private EditText editTextSenhaRegistro;
 
-    private String strMatricula = editTextMatriculaRegistro.getText().toString();
-    private String strNome = editTextNomeRegistro.getText().toString();
-    private String strSenha =  editTextSenhaRegistro.getText().toString();
+    private String strMatricula;
+    private String strNome;
+    private String strSenha;
 
 
     SharedPreferences sharedpreferences;
